@@ -45,4 +45,19 @@ public class CustomerServiceImpl implements CustomerService {
         updatedCustomer.setCustomerUrl("/api/customer/" + updatedCustomer.getId());
         return updatedCustomer;
     }
+
+    @Override
+    public Customer patchCustomer(Long id, Customer customer) {
+        return customerRepository.findById(id).map(mappedCustomer -> {
+            if (customer.getFirstname() != null) {
+                mappedCustomer.setFirstname(customer.getFirstname());
+            }
+
+            if (customer.getLastname() != null) {
+                mappedCustomer.setLastname(customer.getLastname());
+            }
+
+            return customerRepository.save(mappedCustomer);
+        }).orElseThrow(RuntimeException::new);
+    }
 }
