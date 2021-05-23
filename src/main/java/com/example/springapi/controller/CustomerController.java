@@ -1,8 +1,5 @@
 package com.example.springapi.controller;
 
-
-import com.example.springapi.domain.Category;
-import com.example.springapi.domain.CategoryList;
 import com.example.springapi.domain.Customer;
 import com.example.springapi.domain.CustomerList;
 import com.example.springapi.service.CustomerService;
@@ -33,7 +30,12 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Customer> saveNewCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<Customer> createNewCustomer(@RequestBody Customer customer) {
         return new ResponseEntity<Customer>(customerService.createNewCustomer(customer), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Customer> saveCustomer(@PathVariable Long id, @RequestBody Customer customer) {
+        return new ResponseEntity<Customer>(customerService.saveCustomerById(id, customer), HttpStatus.OK);
     }
 }

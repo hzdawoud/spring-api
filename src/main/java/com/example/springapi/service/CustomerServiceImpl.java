@@ -37,4 +37,12 @@ public class CustomerServiceImpl implements CustomerService {
         savedCustomer.setCustomerUrl("/api/customer/" + savedCustomer.getId());
         return savedCustomer;
     }
+
+    @Override
+    public Customer saveCustomerById(Long id, Customer customer) {
+        customer.setId(id);
+        Customer updatedCustomer = customerRepository.save(customer);
+        updatedCustomer.setCustomerUrl("/api/customer/" + updatedCustomer.getId());
+        return updatedCustomer;
+    }
 }
